@@ -1,0 +1,178 @@
+{
+	"info": {
+		"_postman_id": "64f162bd-0f41-4c92-9ddf-41d08e83e44a",
+		"name": "DeckOfCards",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "HappyPath",
+			"item": [
+				{
+					"name": "GenerateNewDeck",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonReponse = JSON.parse(responseBody);\r",
+									"console.log(\"Message is:\"+jsonReponse.DeckID);\r",
+									"postman.setEnvironmentVariable(\"deckID\",jsonReponse.DeckID);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:1010/deckofcards/generate-new-deck-id"
+					},
+					"response": []
+				},
+				{
+					"name": "GetCard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1010/deckofcards/getnext-card-in-deck?deckID={{deckID}}&locationID=6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1010",
+							"path": [
+								"deckofcards",
+								"getnext-card-in-deck"
+							],
+							"query": [
+								{
+									"key": "deckID",
+									"value": "{{deckID}}"
+								},
+								{
+									"key": "locationID",
+									"value": "6"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "skipCard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1010/deckofcards/skipnext-card-in-deck?deckID=JXxFC4Y6Cxrah81C6ibWekG&locationID=7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1010",
+							"path": [
+								"deckofcards",
+								"skipnext-card-in-deck"
+							],
+							"query": [
+								{
+									"key": "deckID",
+									"value": "JXxFC4Y6Cxrah81C6ibWekG"
+								},
+								{
+									"key": "locationID",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FailPath",
+			"item": [
+				{
+					"name": "GenerateNewDeck",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonReponse = JSON.parse(responseBody);\r",
+									"console.log(\"Message is:\"+jsonReponse.DeckID);\r",
+									"postman.setEnvironmentVariable(\"deckID\",jsonReponse.DeckID);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:1010/deckofcards/generate-new-deck-id"
+					},
+					"response": []
+				},
+				{
+					"name": "GetCard",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The response has all properties\", () => {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.message).equals(\"Does not exists in the card!\");\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:1010/deckofcards/getnext-card-in-deck?deckID={{deckID}}&locationID=55",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "1010",
+							"path": [
+								"deckofcards",
+								"getnext-card-in-deck"
+							],
+							"query": [
+								{
+									"key": "deckID",
+									"value": "{{deckID}}"
+								},
+								{
+									"key": "locationID",
+									"value": "55"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
